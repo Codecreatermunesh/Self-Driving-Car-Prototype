@@ -28,6 +28,6 @@ detection, traffic signal recognition, autonomous parking, and real-time compute
 safety, and wireless connectivity via Putty.
 (2)Tools & technologies used: Raspberry Pi Model 3B, Raspian Os, PuTTY SSH, Opencv 3.0,
 Python 2.7. Raspberry Pi 5v Camera, Ultrasonic Sensor, L298 Motor Driver.
-
+MY complete Self Driving Car[Complete_Project_poster_for indian Mobile Congress.jpeg]
  
  
