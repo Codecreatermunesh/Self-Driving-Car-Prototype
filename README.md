@@ -29,5 +29,7 @@ safety, and wireless connectivity via Putty.
 (2)Tools & technologies used: Raspberry Pi Model 3B, Raspian Os, PuTTY SSH, Opencv 3.0,
 Python 2.7. Raspberry Pi 5v Camera, Ultrasonic Sensor, L298 Motor Driver.
 [MY complete Self-Driving Car](https://github.com/Codecreatermunesh/Self_Driving_car/blob/main/Complete_Project_poster_for%20indian%20Mobile%20Congress.jpeg)
+
+[Project Video Link](https://drive.google.com/file/d/1FM05isOpO4h1rO6xat_tEsxeiaTJPvPR/view?usp=sharing)
  
  
