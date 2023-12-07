@@ -92,7 +92,7 @@ while True:
  print (avgDistance)
  flag=0
  if avgDistance < 100:
-    #Check whether the distance is within 25 cm range
+    #Check whether the distance is within 100cm range
     count=count+1
     stop()
     time.sleep(1)
