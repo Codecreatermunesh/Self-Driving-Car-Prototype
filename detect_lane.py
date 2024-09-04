@@ -5,7 +5,8 @@ import cv2
 import numpy as np
 import time
 
-
+#This Python script is designed for real-time video processing using OpenCV. It captures video from a webcam, processes 
+#each frame to detect lines and then determine the direction of those lines (left, right, or straight) based on their angles
 
 
 
