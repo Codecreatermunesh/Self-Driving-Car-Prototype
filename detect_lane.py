@@ -94,3 +94,7 @@ while cap.isOpened():
 
 cap.release()
 cv2.destroyAllWindows()
+# Summary: This code captures video from a webcam, processes each frame to detect lines within a specific region, and then 
+#determines if the lines indicate a "left", "right", or "straight" direction based on their slope. The detected direction is 
+#printed to the console, and the lines are drawn on the video feed for visualization. The program continues running until the 
+#user presses 'q' to quit.
