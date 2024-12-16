@@ -81,7 +81,7 @@ while cap.isOpened():
 
     # Tracking the Red Color
     (contours, hierarchy) = cv2.findContours(red, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    #red colour logic(using paper refrence)
+    #red colour detect logic(using paper refrence)
     for pic, contour in enumerate(contours):
         area = cv2.contourArea(contour)
         if area > 300:
@@ -93,7 +93,7 @@ while cap.isOpened():
 
     # Tracking the Green Color
     (contours, hierarchy) = cv2.findContours(green, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    #green color code logic(using research paper reference that time)
+    #green color detect logic(using research paper reference that time)
     for pic, contour in enumerate(contours):
         area = cv2.contourArea(contour)
         if area > 300:
