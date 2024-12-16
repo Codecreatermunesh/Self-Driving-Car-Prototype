@@ -1,18 +1,25 @@
+# This code is designed to control a robot using an ultrasonic sensor to detect obstacles and GPIO pins to control motors 
+# for movement. The robot/car(my case) moves forward until it detects an obstacle within a certain range, then changes direction 
+# (left or right, backward and forward) to avoid the obstacle. Let's break it down in detail.
+
 import RPi.GPIO as GPIO                    #Import GPIO library
 import time
 
-#Import time library
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)                    # programming the GPIO by BCM pin numbers
+GPIO.setwarnings(False)          # Disable warnings about GPIO pins already being in use
+GPIO.setmode(GPIO.BCM)           # Use BCM pin numbering for GPIO references
 
-TRIG = 17
-ECHO = 27
-led = 22
+#TRIG and ECHO: These control the ultrasonic sensor. TRIG sends an ultrasonic pulse, and ECHO measures the time taken for 
+#the pulse to return after hitting an obstacle.
+TRIG = 17                        # Pin connected to the ultrasonic sensor's TRIG
+ECHO = 27                        # Pin connected to the ultrasonic sensor's ECHO
+led = 22                         # Pin connected to an LED indicator
 
-m11=16
-m12=12
-m21=21
-m22=20
+#m11, m12, m21, m22 These pins Control the direction of two motors (left and right) by activating specific pin combinations.
+m11 = 16                         # Pins connected to motor 1 (left wheel)
+m12 = 12
+m21 = 21                         # Pins connected to motor 2 (right wheel)
+m22 = 20
+
 
 GPIO.setup(TRIG,GPIO.OUT)                  # initialize GPIO Pin as outputs
 GPIO.setup(ECHO,GPIO.IN)                   # initialize GPIO Pin as input
@@ -35,11 +42,12 @@ def stop():
     GPIO.output(m22, 0)
 
 def forward():
-    GPIO.output(m11, 0)
-    GPIO.output(m12, 1)
-    GPIO.output(m21, 1)
-    GPIO.output(m22, 0)
-    print ('Forward')
+    GPIO.output(m11, 0)          # Left motor backward pin is low
+    GPIO.output(m12, 1)          # Left motor forward pin is high
+    GPIO.output(m21, 1)          # Right motor forward pin is high
+    GPIO.output(m22, 0)          # Right motor backward pin is low
+    print('Forward')
+
 
 def back():
     GPIO.output(m11, 0)
@@ -63,7 +71,7 @@ def right():
     print ("right")
 
 #stop()
-count=0
+count=0 ## Counter for determining direction (left/right)
 while True:
  i=0
  avgDistance=0
@@ -91,6 +99,7 @@ while True:
  avgDistance=avgDistance/5
  print (avgDistance)
  flag=0
+    #If an obstacle is detected within 100 cm, Alternate between turning left and right to avoid it.
  if avgDistance < 100:
     #Check whether the distance is within 100cm range
     count=count+1
