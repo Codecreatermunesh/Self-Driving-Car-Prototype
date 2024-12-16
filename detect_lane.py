@@ -22,8 +22,14 @@ def slope(vx1, vx2, vy1, vy2):         #Parameters to calculate slope
 cap = cv2.VideoCapture(0)
 
 
-a=b=c=1
+a=b=c=1  #Initializes state variables a, b, and c to 1. These are used for controlling when direction changes are printed.
 
+#Loops while the video capture is open
+#cap.read() captures a frame, returning ret (boolean for success) and img (the image).
+#Converts img to grayscale (gray) for simpler processing.
+# Equalizes the histogram (equ) to improve contrast in low-light or high-contrast areas.
+# Applies Gaussian blur (blur) to reduce noise and smooth the image.
+# Applies a binary threshold (thresh) to highlight bright regions, setting values above 240 to white (255).
 while cap.isOpened():
     ret, img = cap.read()
     img = cv2.resize(img,(600,600))
@@ -32,15 +38,30 @@ while cap.isOpened():
     blur = cv2.GaussianBlur(equ,(5,5),0)
     ret, thresh = cv2.threshold(blur, 240, 255, cv2.THRESH_BINARY)
 
+
+   	
     # Find Contours
+	 #cv2.findContours detects the contours (outlines) of shapes in the thresholded image.
     contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     # Draw Contour
+	#cv2.drawContours draws those contours on thresh in blue for visualization.
     cv2.drawContours(thresh, contours, -1, (255, 0, 0), 3)
-    
+
+    #Creates an empty black image of the same size as img for drawing purposes.
     drawing = np.zeros(img.shape, np.uint8)
 
+	# Uses the Probabilistic Hough Line Transform to detect lines in the thresh image.
+	# minLineLength sets the minimum length of a line to be detected.
+	# maxLineGap allows for gaps in a single line segment.	
     lines = cv2.HoughLinesP(thresh, cv2.HOUGH_PROBABILISTIC, np.pi/180, 25, minLineLength = 10, maxLineGap = 40)
-    
+
+
+	
+#For each detected line, calculates its slope using slope.
+# Checks if the line is within a certain vertical range (250 < y < 600) to avoid false detection at the edges.
+# Counts lines angled between -80 and -30 degrees as "right" (r) and between 30 and 80 degrees as "left" (l).
+# Draws these lines in green on the original img using cv2.line.
+
     l=r=0
     for line in lines:
         
@@ -62,7 +83,7 @@ while cap.isOpened():
         
                   
 
-    
+    #Direction Determination:
     if l>=10 and a==1:
         
         print ('left')
@@ -84,11 +105,11 @@ while cap.isOpened():
         a=1
         b=1
         c=0
-    cv2.imshow('video', thresh)
+    cv2.imshow('video', thresh) #Displays the processed frame (thresh) and the original frame with detected lines (img).
     cv2.imshow('video1', img)
     #cv2.imshow('equ', drawing)
     #cv2.imshow('edge', equ)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord('q'): #Waits for 'q' key press to exit the loop.
         
         break
 
